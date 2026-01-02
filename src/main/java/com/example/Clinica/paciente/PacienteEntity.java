@@ -23,5 +23,6 @@ public class PacienteEntity {
     private String endereco;
     private Boolean ativo;
     private LocalDateTime dataCadastro;
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 }

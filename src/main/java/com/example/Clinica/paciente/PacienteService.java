@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class PacienteService {
@@ -23,7 +24,8 @@ public class PacienteService {
     public PacienteResponseDTO cadastrar(PacienteRequestDTO dto){
         PacienteEntity paciente = pacienteMapper.map(dto);
         PacienteEntity pacSalvo = pacienteRepository.save(paciente);
-
+        paciente.setDataCadastro(LocalDateTime.now());
+        paciente.setAtivo(true);
         return pacienteMapper.map(pacSalvo);
     }
     @Transactional
