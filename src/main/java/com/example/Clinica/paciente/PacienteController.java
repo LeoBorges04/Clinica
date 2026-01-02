@@ -3,7 +3,6 @@ package com.example.Clinica.paciente;
 import com.example.Clinica.paciente.dto.PacienteRequestDTO;
 import com.example.Clinica.paciente.dto.PacienteResponseDTO;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
