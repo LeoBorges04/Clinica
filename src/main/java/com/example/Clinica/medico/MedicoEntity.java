@@ -3,6 +3,8 @@ package com.example.Clinica.medico;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Entity
 @Table(name="tb_medico")
 @Data
@@ -20,4 +22,7 @@ public class MedicoEntity {
     private boolean ativo;
     @Column(unique = true)
     private String cpf;
+    private String nome;
+    private Set<EspecialidadeMedica> especialidades;
+
 }
