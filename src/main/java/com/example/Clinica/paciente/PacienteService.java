@@ -23,9 +23,9 @@ public class PacienteService {
     //Cadastro de Paciente pelo DTO
     public PacienteResponseDTO cadastrar(PacienteRequestDTO dto){
         PacienteEntity paciente = pacienteMapper.map(dto);
-        PacienteEntity pacSalvo = pacienteRepository.save(paciente);
         paciente.setDataCadastro(LocalDateTime.now());
         paciente.setAtivo(true);
+        PacienteEntity pacSalvo = pacienteRepository.save(paciente);
         return pacienteMapper.map(pacSalvo);
     }
     @Transactional

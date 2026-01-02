@@ -1,9 +1,11 @@
 package com.example.Clinica.medico.dto;
 
 import com.example.Clinica.medico.MedicoEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MedicoMapper {
-    public MedicoEntity map(MedicoRequestDTO dto){
+    public MedicoEntity toEntity(MedicoRequestDTO dto){
         MedicoEntity medico = new MedicoEntity();
         medico.setCpf(dto.getCpf());
         medico.setEmail(dto.getEmail());
@@ -16,7 +18,7 @@ public class MedicoMapper {
         return medico;
     }
 
-    public MedicoResponseDTO map(MedicoEntity medico){
+    public MedicoResponseDTO toResponse(MedicoEntity medico){
         MedicoResponseDTO dto = new MedicoResponseDTO();
         dto.setCrm(medico.getCrm());
         dto.setId(medico.getId());
@@ -24,7 +26,6 @@ public class MedicoMapper {
         dto.setUfCrm(medico.getUfCrm());
         dto.setEmail(medico.getEmail());
         dto.setTelefone(medico.getTelefone());
-
         return dto;
     }
 }
