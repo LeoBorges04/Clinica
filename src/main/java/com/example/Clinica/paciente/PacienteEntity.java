@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tb_paciente")
 @Data
-
 public class PacienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class PacienteEntity {
     private String email;
     private String sexo;
     private String endereco;
-
+    private Boolean ativo;
     private LocalDateTime dataCadastro;
 
 

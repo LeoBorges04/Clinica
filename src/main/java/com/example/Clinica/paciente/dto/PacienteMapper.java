@@ -4,7 +4,7 @@ import com.example.Clinica.paciente.PacienteEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper {
+public class PacienteMapper {
     public PacienteEntity map(PacienteRequestDTO dto){
         PacienteEntity paciente = new PacienteEntity();
         paciente.setCpf(dto.getCpf());
