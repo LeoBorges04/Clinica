@@ -47,5 +47,41 @@ public class PacienteService {
     public List<PacienteResponseDTO> listarTodos(){
         return pacienteRepository.findAllByAtivoTrue().stream().map(pacienteMapper:: map).toList();
     }
+    @Transactional
+    //Ativar cadastro paciente
+    public void ativar(Long id){
+        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
 
+        if(paciente.getAtivo()){
+            throw new IllegalStateException("Paciente já está ativo");
+        }
+
+        paciente.setAtivo(true);
+
+    }
+    //Atualizar cadastro paciente
+    @Transactional
+    public PacienteResponseDTO atualizar(Long id, PacienteRequestDTO dto ){
+        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+        if(dto.getNome() != null){
+            paciente.setNome(dto.getNome());
+        }
+        if(dto.getCpf() != null){
+            paciente.setCpf(dto.getCpf());
+        }
+        if(dto.getEmail() != null){
+            paciente.setEmail(dto.getEmail());
+        }
+        if(dto.getEndereco() != null){
+            paciente.setEndereco(dto.getEndereco());
+        }
+        if(dto.getTelefone() != null){
+            paciente.setTelefone(dto.getTelefone());
+        }
+        if(dto.getSexo() != null){
+            paciente.setSexo(dto.getSexo());
+        }
+
+        return pacienteMapper.map(paciente);
+    }
 }
