@@ -1,21 +1,27 @@
 package com.example.Clinica.paciente.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
+
+@Data
 public class PacienteRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
     @NotBlank(message = "CPF é obrigatório")
+    @CPF(message = "CPF inválido")
     private String cpf;
     @NotBlank(message = "Telefone é obrigatório")
+
+    @Pattern(
+            regexp = "\\d{10,11}",
+            message = "Telefone deve conter 10 ou 11 dígitos numéricos"
+    )
+
     private String telefone;
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email inválido")
@@ -25,51 +31,7 @@ public class PacienteRequestDTO {
     @NotBlank(message = "Endereço é obrigátorio")
     private String endereco;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+    @NotNull(message = "Data de nascimento é obrigatória")
+    @Past(message = "Data de nascimento deve ser no passado")
+    private LocalDate dataNascimento;
 }
