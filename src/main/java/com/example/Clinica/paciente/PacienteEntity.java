@@ -21,7 +21,7 @@ public class PacienteEntity {
     private String email;
     private String sexo;
     private String endereco;
-    private Boolean ativo;
+
     private LocalDateTime dataCadastro;
 
 
