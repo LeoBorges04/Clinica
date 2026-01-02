@@ -13,7 +13,7 @@ public class PacienteMapper {
         paciente.setNome(dto.getNome());
         paciente.setTelefone(dto.getTelefone());
         paciente.setSexo(dto.getSexo());
-
+        paciente.setDataNascimento(dto.getDataNascimento());
         return paciente;
 
     }

@@ -1,6 +1,7 @@
 package com.example.Clinica.paciente.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
@@ -33,5 +34,6 @@ public class PacienteRequestDTO {
 
     @NotNull(message = "Data de nascimento é obrigatória")
     @Past(message = "Data de nascimento deve ser no passado")
+    @JsonProperty("data_nascimento")
     private LocalDate dataNascimento;
 }

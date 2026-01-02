@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data1
+@Data
 public class PacienteResponseDTO {
 
     private String nome;
