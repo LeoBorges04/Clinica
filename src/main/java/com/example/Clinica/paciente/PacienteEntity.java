@@ -3,6 +3,7 @@ package com.example.Clinica.paciente;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,6 +16,7 @@ public class PacienteEntity {
     private String nome;
     @Column(unique = true)
     private String cpf;
+    private Integer idade;
     private String telefone;
     @Column(unique = true)
     private String email;
@@ -22,6 +24,5 @@ public class PacienteEntity {
     private String endereco;
     private Boolean ativo;
     private LocalDateTime dataCadastro;
-
-
+    private LocalDate dataNascimento;
 }
