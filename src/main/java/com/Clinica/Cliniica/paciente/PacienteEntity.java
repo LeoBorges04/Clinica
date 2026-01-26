@@ -21,8 +21,8 @@ public class PacienteEntity {
     private String email;
     private Boolean ativo;
     private String telefone;
-    private LocalDateTime dataCadastro;
-    @Column(name = "data_nascimento", nullable = false)
+    private LocalDateTime data_cadastro;
+    @Column(nullable = false)
     private LocalDate data_nascimento;
 
 }
