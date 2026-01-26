@@ -28,4 +28,5 @@ public class PacienteRequestDto {
     @Past(message = "A data de nascimento deve ser no passado")
     @JsonProperty("data_nascimento")
     private LocalDate data_nascimento;
+
 }
