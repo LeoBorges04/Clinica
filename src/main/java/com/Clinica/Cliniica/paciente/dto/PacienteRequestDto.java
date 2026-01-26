@@ -2,10 +2,11 @@ package com.Clinica.Cliniica.paciente.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-
+@Data
 public class PacienteRequestDto {
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
