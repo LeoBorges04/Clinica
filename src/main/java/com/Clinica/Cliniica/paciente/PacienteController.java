@@ -29,7 +29,7 @@ public class PacienteController {
                 .body(paciente);
     }
 
-    @GetMapping("/paciente/")
+    @GetMapping("/paciente")
     public ResponseEntity<List<PacienteResponseDto>> listarTodos(){
         List<PacienteResponseDto> pacientes = pacienteService.listarTodos();
         return ResponseEntity.ok(pacientes);
@@ -41,11 +41,18 @@ public class PacienteController {
         return ResponseEntity.ok(dto);
     }
 
-
+    //Soft delete
     @DeleteMapping("/paciente/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         pacienteService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/paciente/reativar/{id}")
+    public ResponseEntity<PacienteResponseDto> reativar(@PathVariable Long id){
+        PacienteResponseDto paciente = pacienteService.reativar(id);
+        return ResponseEntity.ok(paciente);
+    }
+
 
 }

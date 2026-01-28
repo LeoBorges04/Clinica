@@ -16,7 +16,7 @@ public class PacienteMapper {
         return paciente;
     }
 
-    public  PacienteResponseDto map(PacienteEntity paciente){
+    public PacienteResponseDto map(PacienteEntity paciente){
         PacienteResponseDto dto = new PacienteResponseDto();
         dto.setCpf(paciente.getCpf());
         dto.setData_cadastro(paciente.getData_cadastro());
@@ -25,6 +25,7 @@ public class PacienteMapper {
         dto.setTelefone(paciente.getTelefone());
         dto.setEmail(paciente.getEmail());
         dto.setEndereco(paciente.getEndereco());
+        dto.setId(paciente.getId());
         return dto;
     }
 }
