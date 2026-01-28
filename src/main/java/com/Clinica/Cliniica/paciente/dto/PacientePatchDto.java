@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 @Data
 public class PacientePatchDto {
+
     private String nome;
     @CPF(message = "CPF inválido")
     private String cpf;
@@ -21,5 +22,5 @@ public class PacientePatchDto {
     private String email;
     private String endereco;
     @Past(message = "Data de nascimento deve ser no passado")
-    private LocalDate dataNascimento;
+    private LocalDate data_nascimento;
 }
