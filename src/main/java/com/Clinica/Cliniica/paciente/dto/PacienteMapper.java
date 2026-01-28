@@ -1,9 +1,11 @@
 package com.Clinica.Cliniica.paciente.dto;
 
 import com.Clinica.Cliniica.paciente.PacienteEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PacienteMapper {
-    public static PacienteEntity map(PacienteRequestDto pacienteDto){
+    public PacienteEntity map(PacienteRequestDto pacienteDto){
         PacienteEntity paciente = new PacienteEntity();
         paciente.setCpf(pacienteDto.getCpf());
         paciente.setData_nascimento(pacienteDto.getData_nascimento());
@@ -14,7 +16,7 @@ public class PacienteMapper {
         return paciente;
     }
 
-    public static PacienteResponseDto map(PacienteEntity paciente){
+    public  PacienteResponseDto map(PacienteEntity paciente){
         PacienteResponseDto dto = new PacienteResponseDto();
         dto.setCpf(paciente.getCpf());
         dto.setData_cadastro(paciente.getData_cadastro());
