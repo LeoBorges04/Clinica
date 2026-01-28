@@ -13,13 +13,17 @@ public class PacienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String nome;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String cpf;
+    @Column(nullable = false)
     private String endereco;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private Boolean ativo;
+    @Column(nullable = false)
     private String telefone;
     private LocalDateTime data_cadastro;
     @Column(nullable = false)
