@@ -48,6 +48,12 @@ public class MedicoController {
                 .body(medico);
     }
 
+    @PatchMapping("/medico/reativar/{id}")
+    public ResponseEntity<MedicoResponseDto> reativar(@PathVariable Long id){
+        MedicoResponseDto medico = medicoService.reativar(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(medico);
+    }
     @DeleteMapping("/medico/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         medicoService.deletar(id);
