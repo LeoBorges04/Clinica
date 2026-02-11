@@ -16,39 +16,39 @@ public class PacienteController {
     public PacienteController(PacienteService pacienteService){
         this.pacienteService = pacienteService;
     }
-    @PostMapping("/paciente")
+    @PostMapping("/pacientes")
     public ResponseEntity<PacienteResponseDto> criarPaciente(@Valid @RequestBody PacienteRequestDto dto){
         PacienteResponseDto paciente = pacienteService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(paciente);
      }
 
-    @GetMapping("/paciente/{id}")
+    @GetMapping("/pacientes/{id}")
     public ResponseEntity<PacienteResponseDto> listarPaciente(@PathVariable Long id){
         PacienteResponseDto paciente =  pacienteService.listar(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(paciente);
     }
 
-    @GetMapping("/paciente")
+    @GetMapping("/pacientes")
     public ResponseEntity<List<PacienteResponseDto>> listarTodos(){
         List<PacienteResponseDto> pacientes = pacienteService.listarTodos();
         return ResponseEntity.ok(pacientes);
     }
 
-    @PatchMapping("/paciente/{id}")
+    @PatchMapping("/pacientes/{id}")
     public ResponseEntity<PacienteResponseDto> atualizar(@PathVariable Long id, @Valid @RequestBody PacientePatchDto paciente){
         PacienteResponseDto dto = pacienteService.atualizarParcial(id,paciente);
         return ResponseEntity.ok(dto);
     }
 
     //Soft delete
-    @DeleteMapping("/paciente/{id}")
+    @DeleteMapping("/pacientes/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         pacienteService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/paciente/reativar/{id}")
+    @PatchMapping("/pacientes/{id}/reativar")
     public ResponseEntity<PacienteResponseDto> reativar(@PathVariable Long id){
         PacienteResponseDto paciente = pacienteService.reativar(id);
         return ResponseEntity.ok(paciente);

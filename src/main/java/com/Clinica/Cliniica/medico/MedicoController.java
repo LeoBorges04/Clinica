@@ -20,41 +20,41 @@ public class MedicoController {
         this.medicoService = medicoService;
     }
 
-    @PostMapping("/medico")
+    @PostMapping("/medicos")
     public ResponseEntity<MedicoResponseDto> cadastrar(@Valid @RequestBody MedicoRequestDto dto){
         MedicoResponseDto medico = medicoService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(medico);
     }
 
-    @GetMapping("/medico")
+    @GetMapping("/medicos")
     public ResponseEntity<List<MedicoResponseDto>> listarTodos(){
         List<MedicoResponseDto> medico = medicoService.listarTodos();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(medico);
     }
 
-    @GetMapping("/medico/{id}")
+    @GetMapping("/medicos/{id}")
     public ResponseEntity<MedicoResponseDto> listarPorId(@PathVariable Long id){
         MedicoResponseDto medico = medicoService.listar(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(medico);
     }
 
-    @PatchMapping("/medico/{id}")
+    @PatchMapping("/medicos/{id}")
     public ResponseEntity<MedicoResponseDto> atualizar(@PathVariable Long id, @Valid @RequestBody MedicoPatchDto dto){
         MedicoResponseDto medico = medicoService.atualizar(id, dto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(medico);
     }
 
-    @PatchMapping("/medico/reativar/{id}")
+    @PatchMapping("/medicos/{id}/reativar")
     public ResponseEntity<MedicoResponseDto> reativar(@PathVariable Long id){
         MedicoResponseDto medico = medicoService.reativar(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(medico);
     }
-    @DeleteMapping("/medico/{id}")
+    @DeleteMapping("/medicos/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         medicoService.deletar(id);
         return ResponseEntity.noContent().build();
