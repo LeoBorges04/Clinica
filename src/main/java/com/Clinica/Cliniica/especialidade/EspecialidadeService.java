@@ -12,14 +12,17 @@ import java.util.List;
 public class EspecialidadeService {
     EspecialidadeRepository especialidadeRepository;
     EspecialidadeMapper especialidadeMapper;
-
-    @Transactional
+    public EspecialidadeService(EspecialidadeRepository especialidadeRepository, EspecialidadeMapper especialidadeMapper){
+        this.especialidadeMapper = especialidadeMapper;
+        this.especialidadeRepository = especialidadeRepository;
+    }
     public EspecialidadeResponseDto cadastrar(EspecialidadeRequestDto dto){
-        EspecialidadeEntity especialidade = especialidadeMapper.map(dto);
-        especialidade.setAtivo(true);
-        EspecialidadeEntity salvo = especialidadeRepository.save(especialidade);
-        return especialidadeMapper.map(salvo);
+        EspecialidadeEntity especialidade = new EspecialidadeEntity();
+        especialidade.setNome(dto.getNome());
 
+        EspecialidadeEntity salvo = especialidadeRepository.save(especialidade);
+
+        return especialidadeMapper.map(salvo);
     }
     public EspecialidadeEntity buscarEspecialidadeAtiva(Long id){
         EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialidade não encontrada"));
