@@ -19,7 +19,7 @@ public class BoasVindas {
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>API Clínica - Online</title>
-                        <style>
+                        <style>"
                             body {
                                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
