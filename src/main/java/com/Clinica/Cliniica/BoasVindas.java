@@ -71,14 +71,12 @@ public class BoasVindas {
                 <p>Data/hora do servidor: %s</p>
                 
                 <a href="/swagger-ui.html" class="btn">Testar a API (Swagger UI)</a>
-                <a href="/v3/api-docs" class="btn">Ver OpenAPI JSON</a>
+                <a href="https://github.com/LeoBorges04/Clinica.git" class="btn">Link Github</a>
                 
                 <footer>
                     Desenvolvido por Leonardo Borges • Deploy no Render • Spring Boot + PostgreSQL
                 </footer>
-                <footer>
-                  <a href="https://github.com/LeoBorges04/Clinica.git" class="btn">Link Github</a>
-                </footer>
+               
             </div>
         </body>
         </html>
