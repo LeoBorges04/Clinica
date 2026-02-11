@@ -22,13 +22,13 @@ public class MedicoMapper {
         MedicoResponseDto dto = new MedicoResponseDto();
         dto.setId(medico.getId());
         dto.setCrm(medico.getCrm());
-
+        dto.setEmail(medico.getEmail());
         dto.setData_nascimento(medico.getData_nascimento());
         dto.setData_cadastro(medico.getData_cadastro());
         dto.setNome(medico.getNome());
         dto.setTelefone(medico.getTelefone());
         dto.setCpf(medico.getCpf());
-
+        dto.setAtivo(medico.getAtivo());
         return dto;
     }
 }

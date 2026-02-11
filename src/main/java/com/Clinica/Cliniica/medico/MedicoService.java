@@ -5,6 +5,7 @@ import com.Clinica.Cliniica.medico.dto.MedicoPatchDto;
 import com.Clinica.Cliniica.medico.dto.MedicoRequestDto;
 import com.Clinica.Cliniica.medico.dto.MedicoResponseDto;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,9 @@ public class MedicoService {
     }
 
     //Cadastra
+    @Transactional
     public MedicoResponseDto cadastrar(MedicoRequestDto dto){
-        MedicoEntity medico = new MedicoEntity();
+        MedicoEntity medico = medicoMapper.map(dto);
         medico.setAtivo(true);
         medico.setData_cadastro(LocalDateTime.now());
         MedicoEntity salvo = medicoRepository.save(medico);
@@ -47,28 +49,31 @@ public class MedicoService {
        return medicoMapper.map(medico);
     }
     //Soft delete
+    @Transactional
     public void deletar(Long id){
         MedicoEntity medico = buscarMedicoAtivo(id);
         medico.setAtivo(false);
     }
     //Reativar
+    @Transactional
     public MedicoResponseDto reativar(Long id){
         MedicoEntity medico = medicoRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Médico não encontrado"));
         if(medico.getAtivo()){
-            new IllegalStateException("Médico já está ativo");
+           throw  new IllegalStateException("Médico já está ativo");
         }
         medico.setAtivo(true);
         return medicoMapper.map(medico);
     }
     //Atualizar parcial
+    @Transactional
     public MedicoResponseDto atualizar(Long id, MedicoPatchDto dto){
         MedicoEntity medico = buscarMedicoAtivo(id);
         if(dto.getCrm() != null){
-            medico.setCrm(medico.getCrm());
+            medico.setCrm(dto.getCrm());
         }
 
         if(dto.getEmail() != null){
-            medico.setEmail(medico.getEmail());
+            medico.setEmail(dto.getEmail());
         }
 
         if(dto.getCpf()!= null){

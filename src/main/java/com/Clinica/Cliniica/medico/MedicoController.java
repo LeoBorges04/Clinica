@@ -20,8 +20,8 @@ public class MedicoController {
         this.medicoService = medicoService;
     }
 
-    @PostMapping("/medico/{id}")
-    public ResponseEntity<MedicoResponseDto> cadastrar(@PathVariable Long id, @Valid @RequestBody MedicoRequestDto dto){
+    @PostMapping("/medico")
+    public ResponseEntity<MedicoResponseDto> cadastrar(@Valid @RequestBody MedicoRequestDto dto){
         MedicoResponseDto medico = medicoService.cadastrar(dto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(medico);
