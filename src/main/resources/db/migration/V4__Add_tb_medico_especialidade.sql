@@ -1,14 +1,16 @@
 CREATE TABLE tb_medico_especialidade (
-     medico_id BIGINT NOT NULL,
-     especialidade_id BIGINT NOT NULL,
+    medico_id BIGINT NOT NULL,
+    especialidade_id BIGINT NOT NULL,
 
-     PRIMARY KEY (medico_id, especialidade_id),
+    PRIMARY KEY (medico_id, especialidade_id),
 
-     CONSTRAINT fk_medico_especialidade_medico
-         FOREIGN KEY (medico_id)
-             REFERENCES tb_medico (id),
+    CONSTRAINT fk_medico_especialidade_medico
+        FOREIGN KEY (medico_id)
+            REFERENCES tb_medico (id)
+            ON DELETE CASCADE,  -- opcional: cascade para deletar associações se médico for removido
 
-     CONSTRAINT fk_medico_especialidade_especialidade
-         FOREIGN KEY (especialidade_id)
-             REFERENCES tb_especialidade (id)
+    CONSTRAINT fk_medico_especialidade_especialidade
+        FOREIGN KEY (especialidade_id)
+            REFERENCES tb_especialidade (id)
+            ON DELETE CASCADE   -- opcional: cascade para deletar associações se especialidade for removida
 );
