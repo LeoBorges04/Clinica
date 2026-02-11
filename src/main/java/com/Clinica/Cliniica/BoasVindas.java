@@ -67,14 +67,17 @@ public class BoasVindas {
             <div class="container">
                 <h1>API Clínica</h1>
                 <p>Backend de gerenciamento de clínica médica</p>
-                <p>Status: <strong>Online e funcional</strong> 🚀</p>
+                <p>Status: <strong>Online</strong></p>
                 <p>Data/hora do servidor: %s</p>
                 
                 <a href="/swagger-ui.html" class="btn">Testar a API (Swagger UI)</a>
                 <a href="/v3/api-docs" class="btn">Ver OpenAPI JSON</a>
                 
                 <footer>
-                    Desenvolvido por Leonardo • Deploy no Render • Spring Boot + PostgreSQL
+                    Desenvolvido por Leonardo Borges • Deploy no Render • Spring Boot + PostgreSQL
+                </footer>
+                <footer>
+                  <a href="https://github.com/LeoBorges04/Clinica.git" class="btn">Link Github</a>
                 </footer>
             </div>
         </body>
