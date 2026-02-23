@@ -5,6 +5,5 @@ import java.util.List;
 public interface PacienteRepository extends JpaRepository<PacienteEntity, Long> {
     List<PacienteEntity> findAllByAtivoTrue();
     boolean existsByCpf(String cpf);
-    boolean existsByCrm(String crm);
     boolean existsByEmail(String email);
 }
