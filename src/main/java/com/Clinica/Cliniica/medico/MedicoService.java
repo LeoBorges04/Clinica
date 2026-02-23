@@ -34,8 +34,16 @@ public class MedicoService {
     @Transactional
     public MedicoResponseDto cadastrar(MedicoRequestDto dto){
         MedicoEntity medico = medicoMapper.map(dto);
-        if(medicoRepository.existsByCpf(medico.getCpf())){
-            throw new ConflitoException("Médico já cadastrado com esse CPF");
+        if (medicoRepository.existsByCpf(dto.getCpf())) {
+            throw new ConflitoException("Já existe médico com esse CPF");
+        }
+
+        if (medicoRepository.existsByEmail(dto.getEmail())) {
+            throw new ConflitoException("Email já cadastrado");
+        }
+
+        if (medicoRepository.existsByCrm(dto.getCrm())) {
+            throw new ConflitoException("CRM já cadastrado");
         }
         medico.setAtivo(true);
         medico.setData_cadastro(LocalDateTime.now());

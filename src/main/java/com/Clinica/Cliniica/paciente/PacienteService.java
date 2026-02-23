@@ -30,6 +30,10 @@ public class PacienteService {
             throw new ConflitoException("Já existe paciente cadastrado com esse CPF");
         }
 
+        if(pacienteRepository.existsByEmail(paciente.getEmail())){
+            throw new ConflitoException("Já existe paciente cadastrado com esse email");
+        }
+
         paciente.setData_cadastro(LocalDateTime.now());
         paciente.setAtivo(true);
         PacienteEntity pacSalvo = pacienteRepository.save(paciente);

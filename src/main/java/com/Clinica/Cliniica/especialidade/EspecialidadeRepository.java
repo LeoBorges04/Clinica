@@ -7,4 +7,5 @@ import java.util.List;
 @Repository
 public interface EspecialidadeRepository extends JpaRepository<EspecialidadeEntity, Long> {
     List<EspecialidadeEntity> findAllByAtivoTrue();
+    boolean existsByNome(String nome);
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface MedicoRepository extends JpaRepository<MedicoEntity, Long> {
     List<MedicoEntity> findAllByAtivoTrue();
     boolean existsByCpf(String cpf);
+    boolean existsByCrm(String crm);
+    boolean existsByEmail(String email);
 }

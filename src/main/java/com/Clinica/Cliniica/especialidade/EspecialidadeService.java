@@ -18,6 +18,9 @@ public class EspecialidadeService {
     }
     public EspecialidadeResponseDto cadastrar(EspecialidadeRequestDto dto){
         EspecialidadeEntity especialidade = new EspecialidadeEntity();
+        if(especialidadeRepository.existsByNome(especialidade.getNome())){
+            throw new ConflitoException("Especialidade já cadastrada");
+        }
         especialidade.setNome(dto.getNome());
 
         EspecialidadeEntity salvo = especialidadeRepository.save(especialidade);
