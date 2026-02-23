@@ -7,4 +7,5 @@ import java.util.List;
 @Repository
 public interface MedicoRepository extends JpaRepository<MedicoEntity, Long> {
     List<MedicoEntity> findAllByAtivoTrue();
+    boolean existsByCpf(String cpf);
 }

@@ -1,12 +1,12 @@
 package com.Clinica.Cliniica.medico;
 
+import com.Clinica.Cliniica.exception.ConflitoException;
+import com.Clinica.Cliniica.exception.RecursoNaoEncontradoException;
 import com.Clinica.Cliniica.medico.dto.MedicoMapper;
 import com.Clinica.Cliniica.medico.dto.MedicoPatchDto;
 import com.Clinica.Cliniica.medico.dto.MedicoRequestDto;
 import com.Clinica.Cliniica.medico.dto.MedicoResponseDto;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,9 +22,9 @@ public class MedicoService {
     }
 
     public MedicoEntity buscarMedicoAtivo(Long id){
-        MedicoEntity medico = medicoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Médico não encontrado"));
+        MedicoEntity medico = medicoRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Médico não encontrado"));
         if(!medico.getAtivo()){
-            throw new IllegalStateException("Médico inativo");
+            throw new ConflitoException("Médico inativo");
 
         }
         return medico;
@@ -34,6 +34,9 @@ public class MedicoService {
     @Transactional
     public MedicoResponseDto cadastrar(MedicoRequestDto dto){
         MedicoEntity medico = medicoMapper.map(dto);
+        if(medicoRepository.existsByCpf(medico.getCpf())){
+            throw new ConflitoException("Médico já cadastrado com esse CPF");
+        }
         medico.setAtivo(true);
         medico.setData_cadastro(LocalDateTime.now());
         MedicoEntity salvo = medicoRepository.save(medico);
@@ -57,9 +60,9 @@ public class MedicoService {
     //Reativar
     @Transactional
     public MedicoResponseDto reativar(Long id){
-        MedicoEntity medico = medicoRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Médico não encontrado"));
+        MedicoEntity medico = medicoRepository.findById(id).orElseThrow(()-> new RecursoNaoEncontradoException("Médico não encontrado"));
         if(medico.getAtivo()){
-           throw  new IllegalStateException("Médico já está ativo");
+           throw  new ConflitoException("Médico já está ativo");
         }
         medico.setAtivo(true);
         return medicoMapper.map(medico);

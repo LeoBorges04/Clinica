@@ -3,8 +3,8 @@ package com.Clinica.Cliniica.especialidade;
 import com.Clinica.Cliniica.especialidade.dto.EspecialidadeMapper;
 import com.Clinica.Cliniica.especialidade.dto.EspecialidadeRequestDto;
 import com.Clinica.Cliniica.especialidade.dto.EspecialidadeResponseDto;
-import com.Clinica.Cliniica.medico.MedicoEntity;
-import jakarta.persistence.EntityNotFoundException;
+import com.Clinica.Cliniica.exception.ConflitoException;
+import com.Clinica.Cliniica.exception.RecursoNaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -25,9 +25,9 @@ public class EspecialidadeService {
         return especialidadeMapper.map(salvo);
     }
     public EspecialidadeEntity buscarEspecialidadeAtiva(Long id){
-        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialidade não encontrada"));
+        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Especialidade não encontrada"));
         if(!especialidade.getAtivo()){
-            throw new IllegalStateException("Especialidade inativa");
+            throw new ConflitoException("Especialidade inativa");
 
         }
         return especialidade;
@@ -58,9 +58,9 @@ public class EspecialidadeService {
 
     @Transactional
     public void deletar(Long id){
-        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialidade não encontrada"));
+        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Especialidade não encontrada"));
         if(!especialidade.getAtivo()){
-            new IllegalStateException("Especialidade já está inativa");
+            throw new ConflitoException("Especialidade já está inativa");
         }
 
         especialidade.setAtivo(false);
@@ -68,9 +68,9 @@ public class EspecialidadeService {
 
     @Transactional
     public EspecialidadeResponseDto reativar(Long id){
-        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Especialidade não encontrada"));
+        EspecialidadeEntity especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Especialidade não encontrada"));
         if(especialidade.getAtivo()){
-            new IllegalStateException("Especialidade já está ativa");
+           throw  new ConflitoException("Especialidade já está ativa");
         }
 
         especialidade.setAtivo(true);

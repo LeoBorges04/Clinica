@@ -1,10 +1,11 @@
 package com.Clinica.Cliniica.paciente;
 
+import com.Clinica.Cliniica.exception.ConflitoException;
+import com.Clinica.Cliniica.exception.RecursoNaoEncontradoException;
 import com.Clinica.Cliniica.paciente.dto.PacienteMapper;
 import com.Clinica.Cliniica.paciente.dto.PacientePatchDto;
 import com.Clinica.Cliniica.paciente.dto.PacienteRequestDto;
 import com.Clinica.Cliniica.paciente.dto.PacienteResponseDto;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -22,7 +23,13 @@ public class PacienteService {
     //Cadastra paciente
     @Transactional
     public PacienteResponseDto cadastrar(PacienteRequestDto dto){
+
         PacienteEntity paciente = pacienteMapper.map(dto);
+
+        if (pacienteRepository.existsByCpf(paciente.getCpf())) {
+            throw new ConflitoException("Já existe paciente cadastrado com esse CPF");
+        }
+
         paciente.setData_cadastro(LocalDateTime.now());
         paciente.setAtivo(true);
         PacienteEntity pacSalvo = pacienteRepository.save(paciente);
@@ -31,9 +38,9 @@ public class PacienteService {
 
     //Retorna paciente
     public PacienteResponseDto listar(Long id){
-         PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+         PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Paciente não encontrado"));
         if(!paciente.getAtivo()){
-            throw new IllegalStateException("Paciente está inativo");
+            throw new ConflitoException("Paciente está inativo");
         }
         return pacienteMapper.map(paciente);
     }
@@ -45,9 +52,10 @@ public class PacienteService {
     //Atualiza paciente
     @Transactional
     public PacienteResponseDto atualizarParcial(Long id, PacientePatchDto dto){
-        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Paciente não encontrado"));
         if(!paciente.getAtivo()){
-            throw new IllegalStateException("Paciente está inativo");
+
+            throw new ConflitoException("Paciente está inativo");
         }
 
         if(dto.getCpf() != null){
@@ -80,9 +88,9 @@ public class PacienteService {
     //Reativa paciente
     @Transactional
     public PacienteResponseDto reativar(Long id){
-        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Paciente não encontrado"));
         if(paciente.getAtivo()){
-            throw new IllegalStateException("Paciente já está ativo");
+            throw new ConflitoException("Paciente já está ativo");
         }
         paciente.setAtivo(true);
         return pacienteMapper.map(paciente);
@@ -91,9 +99,9 @@ public class PacienteService {
     //Desativa paciente (soft delete)
     @Transactional
     public void deletar(Long id){
-        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado"));
+        PacienteEntity paciente = pacienteRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Paciente não encontrado"));
         if(!paciente.getAtivo()){
-            throw new IllegalStateException("Paciente já está inativo");
+            throw new ConflitoException("Paciente já está inativo");
         }
         paciente.setAtivo(false);
     }
